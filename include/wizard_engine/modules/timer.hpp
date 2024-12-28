@@ -45,7 +45,7 @@ class timer final {
   explicit timer() = delete;
 
   /**
-   * \brief Returns the target frame time (milliseconds).
+   * \brief Gets the target frame time (milliseconds).
    * \details This value can be used to adjust the frame rate of the game (FPS).
    * \return Target frame time (milliseconds).
    * \sa set_frame_time(std::uint8_t frame_time)
@@ -53,7 +53,7 @@ class timer final {
   [[nodiscard]] static auto get_frame_time() noexcept -> std::uint8_t;
 
   /**
-   * \brief Modifies the target frame time (milliseconds).
+   * \brief Sets the target frame time (milliseconds).
    * \details This value can be used to adjust the frame rate of the game (FPS).
    * \param frame_time Target frame time (milliseconds).
    * \sa get_frame_time()
@@ -61,7 +61,7 @@ class timer final {
   static void set_frame_time(std::uint8_t frame_time) noexcept;
 
   /**
-   * \brief Returns the current delta time (milliseconds).
+   * \brief Gets the current delta time (milliseconds).
    * \details This value can be used to adjust the pace of the game.
    * \return Current delta time (milliseconds).
    * \sa set_delta_time(float delta_time)
@@ -69,7 +69,7 @@ class timer final {
   [[nodiscard]] static auto get_delta_time() noexcept -> float;
 
   /**
-   * \brief Modifies the current delta time (milliseconds).
+   * \brief Sets the current delta time (milliseconds).
    * \details This value can be used to adjust the pace of the game.
    * \param delta_time Current delta time (milliseconds).
    * \sa get_delta_time()
@@ -77,7 +77,7 @@ class timer final {
   static void set_delta_time(float delta_time) noexcept;
 
   /**
-   * \brief Returns the current game time (milliseconds).
+   * \brief Gets the current game time (milliseconds).
    * \details Elapsed time since the engine initialized (milliseconds).
    * \return Current game time (milliseconds).
    */
