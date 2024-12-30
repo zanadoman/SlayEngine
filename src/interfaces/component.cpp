@@ -28,7 +28,7 @@
 #include "../../include/wizard_engine/interfaces/component.hpp"
 
 namespace wizard_engine::interfaces {
-component::~component() = default;
+component::~component() noexcept = default;
 
 auto component::operator=(const component&) noexcept -> component& = default;
 

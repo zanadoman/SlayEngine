@@ -42,7 +42,7 @@ class component {
   /**
    * \brief Default virtual destructor.
    */
-  virtual ~component();
+  virtual ~component() noexcept;
 
   /**
    * \brief Sets the X position absolute to the world.
