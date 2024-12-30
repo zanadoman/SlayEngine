@@ -22,6 +22,7 @@
 /**
  * \file component.hpp
  * \brief Component interface.
+ * \sa component.cpp
  * \sa entity.hpp
  */
 
@@ -39,29 +40,9 @@ namespace wizard_engine::interfaces {
 class component {
  public:
   /**
-   * \brief Deleted explicit copy constructor.
-   */
-  explicit component(const component&) = delete;
-
-  /**
-   * \brief Deleted explicit move constructor.
-   */
-  explicit component(component&&) = delete;
-
-  /**
    * \brief Default virtual destructor.
    */
-  virtual ~component() = default;
-
-  /**
-   * \brief Deleted copy assignment operator.
-   */
-  auto operator=(const component&) = delete;
-
-  /**
-   * \brief Deleted move assignment operator.
-   */
-  auto operator=(component&&) = delete;
+  virtual ~component();
 
   /**
    * \brief Sets the X position absolute to the world.
@@ -86,6 +67,12 @@ class component {
    * \param theta Theta angle absolute to the world.
    */
   virtual void set_theta(float theta) = 0;
+
+  /**
+   * \brief Sets the Phi angle absolute to the world.
+   * \param phi Phi angle absolute to the world.
+   */
+  virtual void set_phi(float phi) = 0;
 
   /**
    * \brief Sets the scale absolute to the world.
@@ -118,6 +105,12 @@ class component {
   [[nodiscard]] virtual auto get_theta_offset() const -> float = 0;
 
   /**
+   * \brief Gets the Phi angle relative to the parent entity.
+   * \return Phi angle relative to the parent entity.
+   */
+  [[nodiscard]] virtual auto get_phi_offset() const -> float = 0;
+
+  /**
    * \brief Gets the scale relative to the parent entity.
    * \return Scale relative to the parent entity.
    */
@@ -130,10 +123,22 @@ class component {
   [[nodiscard]] virtual auto get_x_attached() const -> bool = 0;
 
   /**
+   * \brief Gets whether the X position is transformed by the parent entity.
+   * \return Whether the X position is transformed by the parent entity.
+   */
+  [[nodiscard]] virtual auto get_x_transformation_attached() const -> bool = 0;
+
+  /**
    * \brief Gets whether the Y position is attached to the parent entity.
    * \return Whether the Y position is attached to the parent entity.
    */
   [[nodiscard]] virtual auto get_y_attached() const -> bool = 0;
+
+  /**
+   * \brief Gets whether the Y position is transformed by the parent entity.
+   * \return Whether the Y position is transformed by the parent entity.
+   */
+  [[nodiscard]] virtual auto get_y_transformation_attached() const -> bool = 0;
 
   /**
    * \brief Gets whether the Z position is attached to the parent entity.
@@ -142,10 +147,22 @@ class component {
   [[nodiscard]] virtual auto get_z_attached() const -> bool = 0;
 
   /**
+   * \brief Gets whether the Z position is transformed by the parent entity.
+   * \return Whether the Z position is transformed by the parent entity.
+   */
+  [[nodiscard]] virtual auto get_z_transformation_attached() const -> bool = 0;
+
+  /**
    * \brief Gets whether the Theta angle is attached to the parent entity.
    * \return Whether the Theta angle is attached to the parent entity.
    */
   [[nodiscard]] virtual auto get_theta_attached() const -> bool = 0;
+
+  /**
+   * \brief Gets whether the Phi angle is attached to the parent entity.
+   * \return Whether the Phi angle is attached to the parent entity.
+   */
+  [[nodiscard]] virtual auto get_phi_attached() const -> bool = 0;
 
   /**
    * \brief Gets whether the scale is attached to the parent entity.
@@ -153,29 +170,31 @@ class component {
    */
   [[nodiscard]] virtual auto get_scale_attached() const -> bool = 0;
 
-  /**
-   * \brief Gets whether the X position is transformed by the parent entity.
-   * \return Whether the X position is transformed by the parent entity.
-   */
-  [[nodiscard]] virtual auto get_x_transformed() const -> bool = 0;
-
-  /**
-   * \brief Gets whether the Y position is transformed by the parent entity.
-   * \return Whether the Y position is transformed by the parent entity.
-   */
-  [[nodiscard]] virtual auto get_y_transformed() const -> bool = 0;
-
-  /**
-   * \brief Gets whether the Z position is transformed by the parent entity.
-   * \return Whether the Z position is transformed by the parent entity.
-   */
-  [[nodiscard]] virtual auto get_z_tranfromed() const -> bool = 0;
-
  protected:
   /**
    * \brief Default explicit constructor.
    */
-  explicit consteval component() = default;
+  [[nodiscard]] explicit consteval component() noexcept = default;
+
+  /**
+   * \brief Default copy constructor.
+   */
+  [[nodiscard]] consteval component(const component&) noexcept = default;
+
+  /**
+   * \brief Default move constructor.
+   */
+  [[nodiscard]] consteval component(component&&) noexcept = default;
+
+  /**
+   * \brief Default copy assignment operator.
+   */
+  auto operator=(const component&) noexcept -> component&;
+
+  /**
+   * \brief Default move assignment operator.
+   */
+  auto operator=(component&&) noexcept -> component&;
 };
 }  // namespace wizard_engine::interfaces
 
