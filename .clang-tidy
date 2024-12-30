@@ -69,10 +69,14 @@ CheckOptions:
     value: lower_case
   - key: readability-identifier-naming.PrivateMemberCase
     value: lower_case
+  - key: readability-identifier-naming.PrivateMemberPrefix
+    value: '_'
   - key: readability-identifier-naming.PrivateMethodCase
     value: lower_case
   - key: readability-identifier-naming.ProtectedMemberCase
     value: lower_case
+  - key: readability-identifier-naming.ProtectedMemberPrefix
+    value: '_'
   - key: readability-identifier-naming.ProtectedMethodCase
     value: lower_case
   - key: readability-identifier-naming.PublicMemberCase
@@ -117,6 +121,7 @@ Checks: >
   portability-*,
   readability-*,
   -bugprone-easily-swappable-parameters,
+  -clang-analyzer-optin.cplusplus.VirtualCall,
   -cppcoreguidelines-avoid-magic-numbers,
   -readability-identifier-length,
   -readability-magic-numbers
