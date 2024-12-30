@@ -34,7 +34,7 @@
  */
 namespace wizard_engine::interfaces {
 /**
- * \brief Components can be attached to entities.
+ * \brief Components can be controlled by entities.
  * \sa entity
  */
 class component {
@@ -75,8 +75,8 @@ class component {
   virtual void set_phi(float phi) = 0;
 
   /**
-   * \brief Sets the scale absolute to the world.
-   * \param scale Scale absolute to the world.
+   * \brief Sets the size scaling absolute to the world.
+   * \param scale Size scaling absolute to the world.
    */
   virtual void set_scale(float scale) = 0;
 
@@ -111,8 +111,8 @@ class component {
   [[nodiscard]] virtual auto get_phi_offset() const -> float = 0;
 
   /**
-   * \brief Gets the scale relative to the parent entity.
-   * \return Scale relative to the parent entity.
+   * \brief Gets the size scaling relative to the parent entity.
+   * \return Size scaling relative to the parent entity.
    */
   [[nodiscard]] virtual auto get_scale_offset() const -> float = 0;
 
@@ -165,8 +165,8 @@ class component {
   [[nodiscard]] virtual auto get_phi_attached() const -> bool = 0;
 
   /**
-   * \brief Gets whether the scale is attached to the parent entity.
-   * \return Whether the scale is attached to the parent entity.
+   * \brief Gets whether the size scaling is attached to the parent entity.
+   * \return Whether the size scaling is attached to the parent entity.
    */
   [[nodiscard]] virtual auto get_scale_attached() const -> bool = 0;
 
@@ -178,23 +178,29 @@ class component {
 
   /**
    * \brief Default copy constructor.
+   * \param other Copied instance.
    */
-  [[nodiscard]] consteval component(const component&) noexcept = default;
+  [[nodiscard]] consteval component(const component& other) noexcept = default;
 
   /**
    * \brief Default move constructor.
+   * \param other Moved instance.
    */
-  [[nodiscard]] consteval component(component&&) noexcept = default;
+  [[nodiscard]] consteval component(component&& other) noexcept = default;
 
   /**
    * \brief Default copy assignment operator.
+   * \param other Copied instance.
+   * \return Reference to self.
    */
-  auto operator=(const component&) noexcept -> component&;
+  auto operator=(const component& other) noexcept -> component&;
 
   /**
    * \brief Default move assignment operator.
+   * \param other Moved instance.
+   * \return Reference to self.
    */
-  auto operator=(component&&) noexcept -> component&;
+  auto operator=(component&& other) noexcept -> component&;
 };
 }  // namespace wizard_engine::interfaces
 
