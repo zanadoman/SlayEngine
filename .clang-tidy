@@ -121,7 +121,6 @@ Checks: >
   portability-*,
   readability-*,
   -bugprone-easily-swappable-parameters,
-  -clang-analyzer-optin.cplusplus.VirtualCall,
   -cppcoreguidelines-avoid-magic-numbers,
   -readability-identifier-length,
   -readability-magic-numbers
