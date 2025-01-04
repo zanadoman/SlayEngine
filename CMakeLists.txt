@@ -9,21 +9,17 @@ set(CMAKE_CXX_CLANG_TIDY clang-tidy;-p;${CMAKE_BINARY_DIR})
 # Project
 project(wizard_engine LANGUAGES CXX)
 
-# Architecture
-if(NOT ${CMAKE_SYSTEM_PROCESSOR} MATCHES x86_64|AMD64)
-  message(FATAL_ERROR "Unsupported architecture, CMake will exit.")
-endif()
-
-# Host
-if(NOT ${CMAKE_SYSTEM_NAME} MATCHES Linux|Windows)
-  message(FATAL_ERROR "Unsupported host, CMake will exit.")
+# Target
+if(NOT ${CMAKE_SYSTEM_PROCESSOR}-${CMAKE_SYSTEM_NAME} MATCHES
+  x86_64-Linux|aarch64-Linux|AMD64-Windows)
+  message(FATAL_ERROR "Unsupported target, CMake will exit.")
 endif()
 
 # Compiler
 if(NOT ${CMAKE_CXX_COMPILER_ID} STREQUAL Clang)
   message(FATAL_ERROR "Unsupported compiler, CMake will exit.")
 endif()
-if(${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 18.0.1)
+if(${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 18.0.3)
   message(FATAL_ERROR "Outdated compiler, CMake will exit.")
 endif()
 
