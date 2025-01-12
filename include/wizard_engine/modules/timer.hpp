@@ -83,15 +83,11 @@ class timer final {
    */
   [[nodiscard]] static auto get_current_time() noexcept -> std::uint64_t;
 
-#ifdef WIZARD_ENGINE_MODULES_TIMER_INTERNAL
   /**
-   * \brief Updates the timer module.
-   * \details This method is called internally by the engine on every update.
-   * \warning This method is managed by the engine itself. Misuse may lead to
-   * undefined behavior.
+   * \brief Synchronizes the current frame and calculates the next delta time.
+   * \note This function needed to be handled manually within the game loop.
    */
-  static void update() noexcept;
-#endif  // WIZARD_ENGINE_MODULES_TIMER_INTERNAL
+  static void synchronize() noexcept;
 
  private:
   static std::uint8_t _frame_time;

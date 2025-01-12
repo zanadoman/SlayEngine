@@ -25,8 +25,6 @@
  * \sa timer.hpp
  */
 
-#define WIZARD_ENGINE_MODULES_TIMER_INTERNAL
-
 #include "../../include/wizard_engine/modules/timer.hpp"
 
 #include <SDL3/SDL_timer.h>
@@ -54,8 +52,8 @@ auto timer::get_current_time() noexcept -> std::uint64_t {
   return SDL_GetTicks();
 }
 
-void timer::update() noexcept {
-  auto end{_last_time + get_frame_time()};
+void timer::synchronize() noexcept {
+  const auto end{_last_time + get_frame_time()};
   auto now{get_current_time()};
   if (now < end) {
     SDL_Delay(static_cast<std::uint32_t>(end - now));

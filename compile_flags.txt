@@ -10,3 +10,4 @@
 -Weverything
 -Wno-c++20-compat
 -Wno-c++98-compat
+-Wno-padded
