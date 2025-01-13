@@ -45,6 +45,20 @@ class component {
   virtual ~component() noexcept;
 
   /**
+   * \brief Default member equality comparison operator.
+   * \param other Compared instance.
+   * \return Result of the comparison.
+   */
+  [[nodiscard]] auto operator==(const component& other) const noexcept -> bool;
+
+  /**
+   * \brief Default member unequality comparison operator.
+   * \param other Compared instance.
+   * \return Result of the comparison.
+   */
+  [[nodiscard]] auto operator!=(const component& other) const noexcept -> bool;
+
+  /**
    * \brief Sets the X position absolute to the world.
    * \param x X position absolute to the world.
    */

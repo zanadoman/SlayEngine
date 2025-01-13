@@ -30,6 +30,10 @@
 namespace wizard_engine::interfaces {
 component::~component() noexcept = default;
 
+auto component::operator==(const component&) const noexcept -> bool = default;
+
+auto component::operator!=(const component&) const noexcept -> bool = default;
+
 auto component::operator=(const component&) noexcept -> component& = default;
 
 auto component::operator=(component&&) noexcept -> component& = default;
