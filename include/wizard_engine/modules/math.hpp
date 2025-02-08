@@ -71,6 +71,12 @@ class math final {
   [[nodiscard]] static auto get() -> math&;
 
   /**
+   * \brief Sets the seed of the global PRNG.
+   * \param seed New seed of the global PRNG.
+   */
+  void set_mt19937_64_seed(std::uint64_t seed);
+
+  /**
    * \brief Gets the single precision epsilon value used by the engine.
    * \return Single precision epsilon value used by the engine.
    */

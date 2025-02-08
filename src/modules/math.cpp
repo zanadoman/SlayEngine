@@ -36,6 +36,10 @@ auto math::get() -> math& {
   return INSTANCE;
 }
 
+void math::set_mt19937_64_seed(std::uint64_t seed) {
+  _mt19937_64.seed(seed);
+}
+
 auto math::magnitude_2d(const std::array<float, 2>& vector) noexcept -> float {
   return std::sqrtf(std::powf(vector[0], 2) + std::powf(vector[1], 2));
 }
