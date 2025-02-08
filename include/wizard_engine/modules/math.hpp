@@ -29,7 +29,6 @@
 #define WIZARD_ENGINE_MODULES_MATH_HPP
 
 #include <array>
-#include <chrono>
 #include <limits>
 #include <mutex>
 #include <numbers>
@@ -365,8 +364,7 @@ class math final {
   }
 
  private:
-  std::mt19937_64 _mt19937_64{static_cast<std::uint64_t>(
-      std::chrono::steady_clock::now().time_since_epoch().count())};
+  std::mt19937_64 _mt19937_64{std::random_device{}()};
   std::mutex _mt19937_64_mutex;
 
   /**
