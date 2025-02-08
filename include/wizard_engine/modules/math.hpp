@@ -29,7 +29,9 @@
 #define WIZARD_ENGINE_MODULES_MATH_HPP
 
 #include <array>
+#include <chrono>
 #include <limits>
+#include <mutex>
 #include <numbers>
 #include <random>
 #include <type_traits>
@@ -44,9 +46,30 @@ namespace wizard_engine::modules {
 class math final {
  public:
   /**
-   * \brief Deleted explicit constructor.
+   * \brief Deleted copy constructor.
    */
-  explicit math() = delete;
+  math(const math&) = delete;
+
+  /**
+   * \brief Deleted move constructor.
+   */
+  math(math&&) = delete;
+
+  /**
+   * \brief Deleted copy assignment operator.
+   */
+  auto operator=(const math&) = delete;
+
+  /**
+   * \breif Deleted move assignment operator.
+   */
+  auto operator=(math&&) = delete;
+
+  /**
+   * \brief Gets the global singleton intance.
+   * \return Global singleton instance.
+   */
+  [[nodiscard]] static auto get() -> math&;
 
   /**
    * \brief Gets the single precision epsilon value used by the engine.
@@ -316,8 +339,9 @@ class math final {
    */
   template <typename T>
     requires(std::is_arithmetic_v<T> && !std::is_same_v<T, bool>)
-  [[nodiscard]] static auto random(T minimum = std::numeric_limits<T>::lowest(),
-                                   T maximum = std::numeric_limits<T>::max()) {
+  [[nodiscard]] auto random(T minimum = std::numeric_limits<T>::lowest(),
+                            T maximum = std::numeric_limits<T>::max()) {
+    auto lock_guard{std::lock_guard<std::mutex>{_mt19937_64_mutex}};
     if constexpr (std::is_integral_v<T>) {
       return std::uniform_int_distribution<T>{minimum, maximum}(_mt19937_64);
     } else if constexpr (std::is_floating_point_v<T>) {
@@ -334,13 +358,26 @@ class math final {
    */
   template <typename T>
     requires(std::is_same_v<T, bool>)
-  [[nodiscard]] static auto random(
+  [[nodiscard]] auto random(
       double probability = std::numeric_limits<bool>::max() * .5) {
+    auto lock_guard{std::lock_guard<std::mutex>{_mt19937_64_mutex}};
     return std::bernoulli_distribution{probability}(_mt19937_64);
   }
 
  private:
-  static std::mt19937_64 _mt19937_64;
+  std::mt19937_64 _mt19937_64{static_cast<std::uint64_t>(
+      std::chrono::steady_clock::now().time_since_epoch().count())};
+  std::mutex _mt19937_64_mutex;
+
+  /**
+   * \brief Default explicit constructor.
+   */
+  [[nodiscard]] explicit math();
+
+  /**
+   * \brief Default destructor.
+   */
+  ~math() noexcept = default;
 };
 }  // namespace wizard_engine::modules
 

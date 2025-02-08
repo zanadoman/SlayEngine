@@ -32,7 +32,12 @@
 #include <cstdint>
 
 namespace wizard_engine::modules {
-auto timer::get_frame_time() noexcept -> std::uint8_t {
+auto timer::get() -> timer& {
+  static thread_local timer INSTANCE{};
+  return INSTANCE;
+}
+
+auto timer::get_frame_time() const noexcept -> std::uint8_t {
   return _frame_time;
 }
 
@@ -40,7 +45,7 @@ void timer::set_frame_time(std::uint8_t frame_time) noexcept {
   _frame_time = frame_time;
 }
 
-auto timer::get_delta_time() noexcept -> float {
+auto timer::get_delta_time() const noexcept -> float {
   return _delta_time;
 }
 
@@ -63,7 +68,5 @@ void timer::synchronize() noexcept {
   _last_time = now;
 }
 
-std::uint8_t timer::_frame_time{};
-float timer::_delta_time{};
-std::uint64_t timer::_last_time{};
+timer::timer() = default;
 }  // namespace wizard_engine::modules

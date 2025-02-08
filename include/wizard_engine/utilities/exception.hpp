@@ -82,12 +82,12 @@ class exception final : public std::exception {
   /**
    * \brief Deleted copy constructor.
    */
-  exception(const exception& other) = delete;
+  exception(const exception&) = delete;
 
   /**
    * \brief Deleted move constructor.
    */
-  exception(exception&& other) = delete;
+  exception(exception&&) = delete;
 
   /**
    * \brief Default destructor.
@@ -97,7 +97,7 @@ class exception final : public std::exception {
   /**
    * \brief Deleted copy assignment operator.
    */
-  auto operator=(const exception& other) = delete;
+  auto operator=(const exception&) = delete;
 
   /**
    * \brief Deleted move assignment operator.

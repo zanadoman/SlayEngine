@@ -40,9 +40,30 @@ namespace wizard_engine::modules {
 class timer final {
  public:
   /**
-   * \brief Deleted explicit constructor.
+   * Deleted copy constructor.
    */
-  explicit timer() = delete;
+  timer(const timer&) = delete;
+
+  /**
+   * Deleted move constructor.
+   */
+  timer(timer&&) = delete;
+
+  /**
+   * Deleted copy assignment operator.
+   */
+  auto operator=(const timer&) = delete;
+
+  /**
+   * Deleted move assignment operator.
+   */
+  auto operator=(timer&&) = delete;
+
+  /**
+   * \brief Gets the thread local singleton intance.
+   * \return Thread local singleton instance.
+   */
+  [[nodiscard]] static auto get() -> timer&;
 
   /**
    * \brief Gets the target frame time (milliseconds).
@@ -50,7 +71,7 @@ class timer final {
    * \return Target frame time (milliseconds).
    * \sa set_frame_time(std::uint8_t frame_time)
    */
-  [[nodiscard]] static auto get_frame_time() noexcept -> std::uint8_t;
+  [[nodiscard]] auto get_frame_time() const noexcept -> std::uint8_t;
 
   /**
    * \brief Sets the target frame time (milliseconds).
@@ -58,7 +79,7 @@ class timer final {
    * \param frame_time Target frame time (milliseconds).
    * \sa get_frame_time()
    */
-  static void set_frame_time(std::uint8_t frame_time) noexcept;
+  void set_frame_time(std::uint8_t frame_time) noexcept;
 
   /**
    * \brief Gets the current delta time (milliseconds).
@@ -66,7 +87,7 @@ class timer final {
    * \return Current delta time (milliseconds).
    * \sa set_delta_time(float delta_time)
    */
-  [[nodiscard]] static auto get_delta_time() noexcept -> float;
+  [[nodiscard]] auto get_delta_time() const noexcept -> float;
 
   /**
    * \brief Sets the current delta time (milliseconds).
@@ -74,7 +95,7 @@ class timer final {
    * \param delta_time Current delta time (milliseconds).
    * \sa get_delta_time()
    */
-  static void set_delta_time(float delta_time) noexcept;
+  void set_delta_time(float delta_time) noexcept;
 
   /**
    * \brief Gets the current game time (milliseconds).
@@ -87,12 +108,22 @@ class timer final {
    * \brief Synchronizes the current frame and calculates the next delta time.
    * \note This function needed to be handled manually within the game loop.
    */
-  static void synchronize() noexcept;
+  void synchronize() noexcept;
 
  private:
-  static std::uint8_t _frame_time;
-  static float _delta_time;
-  static std::uint64_t _last_time;
+  std::uint8_t _frame_time{};
+  float _delta_time{};
+  std::uint64_t _last_time{};
+
+  /**
+   * \brief Default explicit constructor.
+   */
+  [[nodiscard]] explicit timer();
+
+  /**
+   * \brief Default destructor.
+   */
+  ~timer() noexcept = default;
 };
 }  // namespace wizard_engine::modules
 

@@ -31,6 +31,11 @@
 #include <cmath>
 
 namespace wizard_engine::modules {
+auto math::get() -> math& {
+  static math INSTANCE{};
+  return INSTANCE;
+}
+
 auto math::magnitude_2d(const std::array<float, 2>& vector) noexcept -> float {
   return std::sqrtf(std::powf(vector[0], 2) + std::powf(vector[1], 2));
 }
@@ -123,4 +128,6 @@ auto math::transformation_matrix_3d(const std::array<float, 2>& angle,
           cosine_theta * scale,
           0};
 }
+
+math::math() = default;
 }  // namespace wizard_engine::modules

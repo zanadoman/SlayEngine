@@ -1,3 +1,11 @@
 BasedOnStyle: Chromium
-QualifierAlignment: Custom
-QualifierOrder: [friend, inline, static, constexpr, const, volatile, restrict, type]
+
+# Recommended QualifierOrder:
+# static
+# thread_local
+# constexpr
+# consteval
+# explicit
+# virtual
+# const
+# auto
