@@ -29,6 +29,7 @@
 #define WIZARD_ENGINE_MODULES_MATH_HPP
 
 #include <array>
+#include <cstdint>
 #include <limits>
 #include <mutex>
 #include <numbers>
@@ -65,22 +66,22 @@ class math final {
   auto operator=(math&&) = delete;
 
   /**
-   * \brief Gets the global singleton intance.
+   * \brief Gets the global singleton instance.
    * \return Global singleton instance.
    */
   [[nodiscard]] static auto get() -> math&;
-
-  /**
-   * \brief Sets the seed of the global PRNG.
-   * \param seed New seed of the global PRNG.
-   */
-  void set_mt19937_64_seed(std::uint64_t seed);
 
   /**
    * \brief Gets the single precision epsilon value used by the engine.
    * \return Single precision epsilon value used by the engine.
    */
   [[nodiscard]] static consteval auto epsilon() noexcept { return .01F; }
+
+  /**
+   * \brief Sets the seed of the global PRNG.
+   * \param seed New seed of the global PRNG.
+   */
+  void set_mt19937_64_seed(std::uint_fast64_t seed);
 
   /**
    * \brief Converts degrees to radians.
