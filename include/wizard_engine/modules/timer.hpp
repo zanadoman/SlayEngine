@@ -102,7 +102,7 @@ class timer final {
    * \details Elapsed time since the engine initialized (milliseconds).
    * \return Current game time (milliseconds).
    */
-  [[nodiscard]] static auto get_current_time() noexcept -> std::uint64_t;
+  [[nodiscard]] static auto get_current_time() noexcept -> std::int64_t;
 
   /**
    * \brief Synchronizes the current frame and calculates the next delta time.
@@ -113,7 +113,7 @@ class timer final {
  private:
   std::uint8_t _frame_time{};
   float _delta_time{};
-  std::uint64_t _last_time{};
+  std::int64_t _last_time{};
 
   /**
    * \brief Default explicit constructor.

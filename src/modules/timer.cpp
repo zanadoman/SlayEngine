@@ -27,9 +27,9 @@
 
 #include "../../include/wizard_engine/modules/timer.hpp"
 
-#include <SDL3/SDL_timer.h>
-
+#include <chrono>
 #include <cstdint>
+#include <thread>
 
 namespace wizard_engine::modules {
 auto timer::get() -> timer& {
@@ -53,15 +53,17 @@ void timer::set_delta_time(float delta_time) noexcept {
   _delta_time = delta_time;
 }
 
-auto timer::get_current_time() noexcept -> std::uint64_t {
-  return SDL_GetTicks();
+auto timer::get_current_time() noexcept -> std::int64_t {
+  return std::chrono::duration_cast<std::chrono::milliseconds>(
+             std::chrono::system_clock::now().time_since_epoch())
+      .count();
 }
 
 void timer::synchronize() noexcept {
   const auto end{_last_time + get_frame_time()};
   auto now{get_current_time()};
   if (now < end) {
-    SDL_Delay(static_cast<std::uint32_t>(end - now));
+    std::this_thread::sleep_for(std::chrono::milliseconds{end - now});
     now = end;
   }
   set_delta_time(static_cast<float>(now - _last_time));
