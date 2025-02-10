@@ -37,6 +37,12 @@ auto timer::get() -> timer& {
   return INSTANCE;
 }
 
+auto timer::get_current_time() noexcept -> std::int64_t {
+  return std::chrono::duration_cast<std::chrono::milliseconds>(
+             std::chrono::system_clock::now().time_since_epoch())
+      .count();
+}
+
 auto timer::get_frame_time() const noexcept -> std::uint8_t {
   return _frame_time;
 }
@@ -51,12 +57,6 @@ auto timer::get_delta_time() const noexcept -> float {
 
 void timer::set_delta_time(float delta_time) noexcept {
   _delta_time = delta_time;
-}
-
-auto timer::get_current_time() noexcept -> std::int64_t {
-  return std::chrono::duration_cast<std::chrono::milliseconds>(
-             std::chrono::system_clock::now().time_since_epoch())
-      .count();
 }
 
 void timer::synchronize() noexcept {

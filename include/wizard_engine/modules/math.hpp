@@ -78,12 +78,6 @@ class math final {
   [[nodiscard]] static consteval auto epsilon() noexcept { return .01F; }
 
   /**
-   * \brief Sets the seed of the global PRNG.
-   * \param seed New seed of the global PRNG.
-   */
-  void set_mt19937_64_seed(std::uint_fast64_t seed);
-
-  /**
    * \brief Converts degrees to radians.
    * \param degrees Angle in degrees.
    * \return Angle in radians.
@@ -334,6 +328,12 @@ class math final {
            (vector[1] * transformation_matrix[7]) +
            (vector[2] * transformation_matrix[8]);
   }
+
+  /**
+   * \brief Sets the seed of the global PRNG.
+   * \param seed New seed of the global PRNG.
+   */
+  void set_mt19937_64_seed(std::uint_fast64_t seed);
 
   /**
    * \brief Generates a random numeric value from an interval.

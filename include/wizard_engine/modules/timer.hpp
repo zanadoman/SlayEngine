@@ -66,6 +66,13 @@ class timer final {
   [[nodiscard]] static auto get() -> timer&;
 
   /**
+   * \brief Gets the current game time (milliseconds).
+   * \details Elapsed time since the engine initialized (milliseconds).
+   * \return Current game time (milliseconds).
+   */
+  [[nodiscard]] static auto get_current_time() noexcept -> std::int64_t;
+
+  /**
    * \brief Gets the target frame time (milliseconds).
    * \details This value can be used to adjust the frame rate of the game (FPS).
    * \return Target frame time (milliseconds).
@@ -96,13 +103,6 @@ class timer final {
    * \sa get_delta_time()
    */
   void set_delta_time(float delta_time) noexcept;
-
-  /**
-   * \brief Gets the current game time (milliseconds).
-   * \details Elapsed time since the engine initialized (milliseconds).
-   * \return Current game time (milliseconds).
-   */
-  [[nodiscard]] static auto get_current_time() noexcept -> std::int64_t;
 
   /**
    * \brief Synchronizes the current frame and calculates the next delta time.
