@@ -32,7 +32,8 @@ file(GLOB_RECURSE SOURCES ${CMAKE_SOURCE_DIR}/src/*.cpp)
 add_library(${PROJECT_NAME} ${SOURCES})
 
 # Libraries
-target_link_libraries(${PROJECT_NAME} SDL3 SDL3_image SDL3_mixer SDL3_net SDL3_ttf)
+target_link_libraries(${PROJECT_NAME} SDL3 #SDL3_image SDL3_mixer SDL3_net SDL3_ttf
+)
 
 # Examples
 file(GLOB_RECURSE EXAMPLES ${CMAKE_SOURCE_DIR}/examples/*.cpp)

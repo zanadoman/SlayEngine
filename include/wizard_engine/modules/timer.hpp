@@ -60,53 +60,47 @@ class timer final {
   auto operator=(timer&&) = delete;
 
   /**
-   * \brief Gets the thread local singleton intance.
+   * \brief Gets the thread local singleton instance.
    * \return Thread local singleton instance.
    */
-  [[nodiscard]] static auto get() -> timer&;
+  [[nodiscard]] static auto get() noexcept -> timer&;
 
   /**
-   * \brief Gets the current game time (milliseconds).
-   * \details Elapsed time since the engine initialized (milliseconds).
-   * \return Current game time (milliseconds).
+   * \brief Gets the time elapsed since the UNIX epoch (milliseconds).
+   * \return Time elapsed since the UNIX epoch (milliseconds).
    */
   [[nodiscard]] static auto get_current_time() noexcept -> std::int64_t;
 
   /**
-   * \brief Gets the target frame time (milliseconds).
-   * \details This value can be used to adjust the frame rate of the game (FPS).
-   * \return Target frame time (milliseconds).
+   * \brief Gets the target frame time of the current thread (milliseconds).
+   * \return Target frame time of the current thread (milliseconds).
    * \sa set_frame_time(std::uint8_t frame_time)
    */
   [[nodiscard]] auto get_frame_time() const noexcept -> std::uint8_t;
 
   /**
-   * \brief Sets the target frame time (milliseconds).
-   * \details This value can be used to adjust the frame rate of the game (FPS).
-   * \param frame_time Target frame time (milliseconds).
+   * \brief Sets the target frame time of the current thread (milliseconds).
+   * \param frame_time Target frame time of the current thread (milliseconds).
    * \sa get_frame_time()
    */
   void set_frame_time(std::uint8_t frame_time) noexcept;
 
   /**
-   * \brief Gets the current delta time (milliseconds).
-   * \details This value can be used to adjust the pace of the game.
-   * \return Current delta time (milliseconds).
+   * \brief Gets the current delta time of the current thread (milliseconds).
+   * \return Current delta time of the current thread (milliseconds).
    * \sa set_delta_time(float delta_time)
    */
   [[nodiscard]] auto get_delta_time() const noexcept -> float;
 
   /**
-   * \brief Sets the current delta time (milliseconds).
-   * \details This value can be used to adjust the pace of the game.
-   * \param delta_time Current delta time (milliseconds).
+   * \brief Sets the current delta time of the current thread (milliseconds).
+   * \param delta_time Current delta time of the current thread (milliseconds).
    * \sa get_delta_time()
    */
   void set_delta_time(float delta_time) noexcept;
 
   /**
-   * \brief Synchronizes the current frame and calculates the next delta time.
-   * \note This function needed to be handled manually within the game loop.
+   * \brief Synchronizes the current thread and calculates the next delta time.
    */
   void synchronize() noexcept;
 
@@ -116,14 +110,14 @@ class timer final {
   std::int64_t _last_time{};
 
   /**
-   * \brief Default explicit constructor.
+   * \brief Default constructor.
    */
-  [[nodiscard]] explicit timer();
+  [[nodiscard]] consteval explicit timer() noexcept = default;
 
   /**
    * \brief Default destructor.
    */
-  ~timer() noexcept = default;
+  constexpr ~timer() noexcept = default;
 };
 }  // namespace wizard_engine::modules
 

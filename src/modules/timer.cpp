@@ -32,7 +32,7 @@
 #include <thread>
 
 namespace wizard_engine::modules {
-auto timer::get() -> timer& {
+auto timer::get() noexcept -> timer& {
   static thread_local timer INSTANCE{};
   return INSTANCE;
 }
@@ -69,6 +69,4 @@ void timer::synchronize() noexcept {
   set_delta_time(static_cast<float>(now - _last_time));
   _last_time = now;
 }
-
-timer::timer() = default;
 }  // namespace wizard_engine::modules
