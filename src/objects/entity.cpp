@@ -107,7 +107,8 @@ auto entity::get_x() const -> float {
 
 void entity::set_x(float x) {
   _x = x;
-  align_components<&entity::align_component_x>();
+  align_components<&entity::align_component_x,
+                   &entity::align_component_x_transformation>();
 }
 
 auto entity::get_y() const -> float {
@@ -116,7 +117,8 @@ auto entity::get_y() const -> float {
 
 void entity::set_y(float y) {
   _y = y;
-  align_components<&entity::align_component_y>();
+  align_components<&entity::align_component_y,
+                   &entity::align_component_y_transformation>();
 }
 
 auto entity::get_z() const -> float {
@@ -125,7 +127,8 @@ auto entity::get_z() const -> float {
 
 void entity::set_z(float z) {
   _z = z;
-  align_components<&entity::align_component_z>();
+  align_components<&entity::align_component_z,
+                   &entity::align_component_z_transformation>();
 }
 
 auto entity::get_theta() const -> float {
@@ -303,7 +306,7 @@ void entity::align_component_x(component& instance) const {
 }
 
 void entity::align_component_x_transformation(component& instance) const {
-  if (instance.get_x_transformation_attached()) {
+  if (instance.get_x_attached() && instance.get_x_transformation_attached()) {
     instance.set_x(get_x() +
                    modules::math::transform_x_3d(
                        {instance.get_x_offset(), instance.get_y_offset(),
@@ -319,7 +322,7 @@ void entity::align_component_y(component& instance) const {
 }
 
 void entity::align_component_y_transformation(component& instance) const {
-  if (instance.get_y_transformation_attached()) {
+  if (instance.get_y_attached() && instance.get_y_transformation_attached()) {
     instance.set_y(get_y() +
                    modules::math::transform_y_3d(
                        {instance.get_x_offset(), instance.get_y_offset(),
@@ -335,7 +338,7 @@ void entity::align_component_z(component& instance) const {
 }
 
 void entity::align_component_z_transformation(component& instance) const {
-  if (instance.get_z_transformation_attached()) {
+  if (instance.get_z_attached() && instance.get_z_transformation_attached()) {
     instance.set_z(get_z() +
                    modules::math::transform_z_3d(
                        {instance.get_x_offset(), instance.get_y_offset(),
