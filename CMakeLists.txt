@@ -32,8 +32,13 @@ file(GLOB_RECURSE SOURCES ${CMAKE_SOURCE_DIR}/src/*.cpp)
 add_library(${PROJECT_NAME} ${SOURCES})
 
 # Libraries
-target_link_libraries(${PROJECT_NAME} SDL3 #SDL3_image SDL3_mixer SDL3_net SDL3_ttf
+target_link_libraries(${PROJECT_NAME} SDL3 # SDL3_image SDL3_mixer SDL3_net SDL3_ttf
 )
+
+# Tests
+file(GLOB_RECURSE TESTS ${CMAKE_SOURCE_DIR}/tests/*.cpp)
+add_executable(test ${TESTS})
+target_link_libraries(test ${PROJECT_NAME} gtest gtest_main)
 
 # Examples
 file(GLOB_RECURSE EXAMPLES ${CMAKE_SOURCE_DIR}/examples/*.cpp)

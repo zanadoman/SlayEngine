@@ -6,7 +6,7 @@
 namespace wzm = wizard_engine::modules;
 
 auto main([[maybe_unused]] std::int32_t argc,
-          [[maybe_unused]] char* argv[]) noexcept -> std::int32_t {
+          [[maybe_unused]] char** argv) noexcept -> std::int32_t {
   wzm::timer::get().set_frame_time(10);
 
   for (;;) {

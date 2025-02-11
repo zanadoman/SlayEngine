@@ -107,17 +107,17 @@ class timer final {
  private:
   std::uint8_t _frame_time{};
   float _delta_time{};
-  std::int64_t _last_time{};
+  std::int64_t _last_time{get_current_time()};
 
   /**
    * \brief Default constructor.
    */
-  [[nodiscard]] consteval explicit timer() noexcept = default;
+  [[nodiscard]] explicit timer() noexcept = default;
 
   /**
    * \brief Default destructor.
    */
-  constexpr ~timer() noexcept = default;
+  ~timer() noexcept = default;
 };
 }  // namespace wizard_engine::modules
 
