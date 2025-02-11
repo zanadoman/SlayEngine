@@ -377,7 +377,7 @@ class math final {
   /**
    * \brief Default explicit constructor.
    */
-  [[nodiscard]] explicit math();
+  [[nodiscard]] explicit math() = default;
 
   /**
    * \brief Default destructor.

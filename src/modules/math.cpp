@@ -135,6 +135,4 @@ void math::set_mt19937_64_seed(std::uint_fast64_t seed) {
   auto lock_guard{std::lock_guard<std::mutex>{_mt19937_64_mutex}};
   _mt19937_64.seed(seed);
 }
-
-math::math() = default;
 }  // namespace wizard_engine::modules
