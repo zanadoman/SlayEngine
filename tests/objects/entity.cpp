@@ -1,3 +1,24 @@
+/*
+  Wizard Engine
+  Copyright (C) 2023-2025 Doman Zana
+
+  This software is provided 'as-is', without any express or implied
+  warranty. In no event will the authors be held liable for any damages
+  arising from the use of this software.
+
+  Permission is granted to anyone to use this software for any purpose,
+  including commercial applications, and to alter it and redistribute it
+  freely, subject to the following restrictions:
+
+  1. The origin of this software must not be misrepresented; you must not
+     claim that you wrote the original software. If you use this software
+     in a product, an acknowledgment in the product documentation would be
+     appreciated but is not required.
+  2. Altered source versions must be plainly marked as such, and must not be
+     misrepresented as being the original software.
+  3. This notice may not be removed or altered from any source distribution.
+*/
+
 #include "../../include/wizard_engine/objects/entity.hpp"
 
 #include <gtest/gtest.h>
@@ -18,6 +39,7 @@ static constexpr float SCALED_VALUE{VALUE * SCALE};
 TEST(entity, components) {
   auto component{std::make_shared<wzo::entity>()};
   wzo::entity entity{{component}};
+  ASSERT_NO_THROW(entity.align_components());
   ASSERT_EQ(entity.components().size(), 1);
   ASSERT_NO_THROW(component.reset());
   ASSERT_NO_THROW(entity.align_components());
@@ -66,10 +88,12 @@ TEST(entity, phi) {
 }
 
 TEST(entity, scale) {
-  wzo::entity entity{};
+  const auto component{std::make_shared<wzo::entity>()};
+  wzo::entity entity{{component}};
   ASSERT_FLOAT_EQ(entity.get_scale(), 1);
   ASSERT_NO_THROW(entity.set_scale(VALUE));
   ASSERT_FLOAT_EQ(entity.get_scale(), VALUE);
+  ASSERT_FLOAT_EQ(component->get_scale(), VALUE);
 }
 
 TEST(entity, x_offset) {
@@ -77,6 +101,8 @@ TEST(entity, x_offset) {
   ASSERT_FLOAT_EQ(entity.get_x_offset(), 0);
   ASSERT_NO_THROW(entity.set_x_offset(VALUE));
   ASSERT_FLOAT_EQ(entity.get_x_offset(), VALUE);
+  ASSERT_NO_THROW(entity.set_scale(SCALE));
+  ASSERT_FLOAT_EQ(entity.get_x_offset(), SCALED_VALUE);
 }
 
 TEST(entity, y_offset) {
@@ -84,6 +110,8 @@ TEST(entity, y_offset) {
   ASSERT_FLOAT_EQ(entity.get_y_offset(), 0);
   ASSERT_NO_THROW(entity.set_y_offset(VALUE));
   ASSERT_FLOAT_EQ(entity.get_y_offset(), VALUE);
+  ASSERT_NO_THROW(entity.set_scale(SCALE));
+  ASSERT_FLOAT_EQ(entity.get_y_offset(), SCALED_VALUE);
 }
 
 TEST(entity, z_offset) {
@@ -91,6 +119,8 @@ TEST(entity, z_offset) {
   ASSERT_FLOAT_EQ(entity.get_z_offset(), 0);
   ASSERT_NO_THROW(entity.set_z_offset(VALUE));
   ASSERT_FLOAT_EQ(entity.get_z_offset(), VALUE);
+  ASSERT_NO_THROW(entity.set_scale(SCALE));
+  ASSERT_FLOAT_EQ(entity.get_z_offset(), SCALED_VALUE);
 }
 
 TEST(entity, theta_offset) {
